@@ -1,11 +1,7 @@
-export const setText = () => {
-	return { text: 'hello', type: 'SET_TEXT' }
-}
+export const setText = () => ({ text: 'hello', type: 'SET_TEXT' })
 
-export const asyncAction = (password) => {
-	return dispatch => {
-		return new Promise((resolve, reject) => {
-			resolve(password)
-		})
-	}
-}
+export const asyncAction = password => (
+	new Promise((resolve) => {
+		resolve(password)
+	})
+)

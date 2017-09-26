@@ -1,19 +1,15 @@
 import 'react-dom'
+import { connect } from 'react-redux'
 import * as TestActions from '../actions/Test'
 import TestComponent from '../components/Test'
-import { connect } from 'react-redux'
 
-const mapStateToProps = ({ TestReducer }) => {
-	return {
-		...TestReducer
-	}
-}
+const mapStateToProps = ({ TestReducer }) => ({
+	...TestReducer
+})
 
-const mapDispatchToProps = dispatch => {
-	return {
-		updateText: () => {dispatch(TestActions.setText())}
-	}
-}
+const mapDispatchToProps = dispatch => ({
+	updateText: () => { dispatch(TestActions.setText()) }
+})
 
 const TestContainer = connect(
 	mapStateToProps,

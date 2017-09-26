@@ -1,7 +1,7 @@
 const TestReducer = (state = {
 	hello: 'click me'
 }, action) => {
-switch (action.type) {
+	switch (action.type) {
 	case 'SET_TEXT':
 		return {
 			...state,

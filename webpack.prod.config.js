@@ -10,14 +10,14 @@ var webpack = require('webpack'),
     },
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-        template: __dirname + '/app/index.html',
+        template: './app/index.html',
         filename: 'index.html',
         inject: 'body'
     })
 
 module.exports = {
   entry: [
-    './app/index.js'
+    './app/index.jsx'
   ],
   loaders: [
     {
@@ -30,16 +30,24 @@ module.exports = {
     path: __dirname + '/dist',
     filename: "index.compiled.js"
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       {
-        test: /\.js$/,
-        exclude: [/node_modules/, /joi-browser/],
+        test: /\.js|.jsx$/,
+        exclude: /node_modules/,
         include: [path.resolve(__dirname, 'app')],
         loader: "babel-loader",
         query: {
             presets: ['react', 'es2015', 'stage-0']
         }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
       },
       {
         test: /\.scss$/,

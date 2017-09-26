@@ -4,14 +4,14 @@ var webpack = require('webpack'),
     precss = require('precss'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-        template: __dirname + '/app/index.html',
+        template: './app/index.html',
         filename: 'index.html',
         inject: 'body'
     })
 
 module.exports = {
   entry: [
-    './app/index.js'
+    './app/index.jsx'
   ],
   resolveLoader: {
     root: path.join(__dirname, 'node_modules')
@@ -20,17 +20,26 @@ module.exports = {
     path: __dirname + '/dist',
     filename: "index.compiled.js"
   },
+  debug: true,
+  devtool: 'source-map',
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
-    devtool: "source-map", // or "inline-source-map"
     loaders: [
       {
-        test: /\.js$/,
-        exclude: [/node_modules/, /joi-browser/],
+        test: /\.js|.jsx$/,
+        exclude: /node_modules/,
         include: [path.resolve(__dirname, 'app')],
         loader: "babel-loader",
         query: {
             presets: ['react', 'es2015', 'stage-0']
         }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
       },
       {
         test: /\.scss$/,
@@ -52,6 +61,10 @@ module.exports = {
     ],
     sassLoader: {
       includePaths: [path.resolve(__dirname, "./app/index.scss")]
+    },
+    eslint: {
+      configFile: './.eslintrc',  //your .eslintrc file 
+      emitWarning: true
     }
   },
   plugins: [
